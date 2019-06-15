@@ -1,8 +1,6 @@
 header{
     background-color: rgba(153,0,0,1);
     width: 100%;
-    position: fixed;
-    z-index: 100;
     box-shadow: 0px 10px 20px black;
 }
 nav a{
@@ -14,8 +12,11 @@ p {
 nav a:hover{
     color: #f7941d;
 }
+section{
+    margin-top: 5%;
+}
 body{
-    background-color: #f3eaaf;
+    background-color: #eeeeee;
     font-family: sans-serif;
 }
 .banner-img{
@@ -23,18 +24,37 @@ body{
 
 }
 .dx{
-  border-radius: 25px;
+  background: #fff;
+  padding: 0px 0px 0px;
+  border-radius: 10px;
   text-align: center;
   align-items: center;
-  
 }
-.dx :hover{
-    background: rgba(0, 0, 0, 0.05);
+.dx .card:hover{
+    background: rgba(238, 238, 238, 0.9);
     animation: 0.25ms;
+    transform: scale(1.01);
+    -webkit-transform: scale(1.01);
+    -moz-transform: scale(1.01);
+    -o-transform: scale(1.01);
 }
 .dx a:hover{
-    background: rgb(255, 255, 255, 0.5);
-    color: black;
+    background: #FAC688;
+    color: #fff;
+    transition: all 0.3s ease-out;
+	-webkit-transition: all 0.3s ease-out;
+    -moz-transition: all 0.3s ease;
+    -o-transition: all 0.3s ease;
+}
+.dx-title{
+    background:#990000;
+    padding: 10px  15%;
+    border-radius: 15px 15px 0px 0px;
+    color:#fff;
+}
+.dx h4{
+    border-bottom: 1px solid #fff;
+    padding-bottom: 10px;
 }
 .dx button{
     background-color: #990000 ;
@@ -66,7 +86,9 @@ footer {
     -moz-box-sizing:border-box;
     box-sizing:border-box;
 }
+
 .card{
+    border-radius: 20px;
     -webkit-box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.1);
     -moz-box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.1);
     box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.1);
@@ -123,7 +145,6 @@ footer {
 .nani1{
     padding: 40px;
     background-color: #fff;
-    display: block;
     color: #777;
     text-align: center;
     border-radius: 10px 10px;

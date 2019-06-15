@@ -1,0 +1,42 @@
+.imgbackground{
+    background-image: url('https://www.tuexperto.com/wp-content/uploads/2017/10/fondo-de-pantalla-paisaje.jpg');
+    z-index: -100;
+    width: 100%;
+}
+
+.btnadmin{
+    padding: 80px 0;
+    height: 100%;
+	background-size: cover;
+    filter: grayscale(1);
+    transition: all 0.3s ease-out;
+	-webkit-transition: all 0.3s ease-out;
+    -moz-transition: all 0.3s ease;
+    -o-transition: all 0.3s ease;
+    cursor: pointer;
+}
+.btnadmin:hover{
+    filter: grayscale(0);
+    transform: scale(1.01);
+    -webkit-transform: scale(1.01);
+    -moz-transform: scale(1.01);
+    -o-transform: scale(1.01);
+    text-decoration: none;
+
+}
+.btnadmin h5{
+    font-family: 'saf', cursive;
+    font-size: 3em;
+    text-align: center!important;
+    color: #fff;
+    text-shadow: 1px 1px 16px rgba(10, 10, 10, 1);
+    text-decoration: none;
+}
+.btndelete{
+
+    text-align: center!important;
+}
+.btndelete img{
+    background-size: cover;
+    text-align: center!important;
+}
