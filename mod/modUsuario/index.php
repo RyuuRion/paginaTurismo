@@ -48,7 +48,7 @@
                           <a class="nav-link" href="/mod/modUsuario/Empresa/Actualizar/index.php?id=<?php echo $row['idEmpresaSuscrita']?>">Administrar Empresa</a>
                          <?php 
                         }
-                         ?> 
+                         ?>
                     </li>
                     <li class="nav-item active">
                       <a class="nav-link" href="/mod/modUsuario/Pago">Portal de Pagos</a>
@@ -65,7 +65,6 @@
             </div>
         </nav>
     </header>
-
       <!--Botones-->
       <section>
         <div class="container">
