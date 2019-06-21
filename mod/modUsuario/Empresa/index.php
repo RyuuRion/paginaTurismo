@@ -1,9 +1,12 @@
 <?php
-
+   include('../../../php/conexion.php');
   session_start();
   if(empty($_SESSION['nombre'])){
     header('Location: /');
   }
+  $query = 'SELECT idEmpresaSuscrita FROM empresasuscrita WHERE Usuario_idUsuario ="'.$_SESSION['id'].'"';
+  $resultado=mysqli_query($mysqli, $query);
+  $row=mysqli_fetch_assoc($resultado);
 
   
 ?>
@@ -38,7 +41,17 @@
                               <a class="nav-link" href="/mod/modUsuario/perfil">Perfil</a>
                             </li>
                     <li class="nav-item active">
+                    <?php 
+                        if(!$resultado){
+                         ?> 
                       <a class="nav-link" href="/mod/modUsuario/Empresa">Administrar Empresa</a>
+                      <?php 
+                        }else{
+                         ?>
+                          <a class="nav-link" href="/mod/modUsuario/Empresa/Actualizar/index.php?id=<?php echo $row['idEmpresaSuscrita']?>">Administrar Empresa</a>
+                         <?php 
+                        }
+                         ?> 
                     </li>
                     <li class="nav-item active">
                       <a class="nav-link" href="/mod/modUsuario/Pago">Portal de Pagos</a>

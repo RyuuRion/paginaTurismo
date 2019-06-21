@@ -1,8 +1,18 @@
 <?php
-session_start();
-if(empty($_SESSION['nombre'])){
+ include('../../../php/conexion.php');
+ session_start();
+  if(empty($_SESSION['nombre'])){
   header('Location: /');
 }
+//datos Empresa
+$dtsEmpresa='SELECT idEmpresaSuscrita, NombreEmpresa, RubroEmpresa, InformacionEmpresa, NTelefonoEmpresa, CorreoEmpresa FROM empresasuscrita WHERE Usuario_idUsuario="'.$_SESSION['id'].'"';
+$resultado=mysqli_query($mysqli, $dtsEmpresa);
+$row=mysqli_fetch_assoc($resultado);
+
+//datos usuario
+$datosUsuario='SELECT UsuarioEmail, UsuarioNombre, UsuarioApellido, UsuarioTelefono FROM usuario WHERE idUsuario="'.$_SESSION["id"].'"';
+$resultUs=mysqli_query($mysqli, $datosUsuario);
+$rew=mysqli_fetch_assoc($resultUs);
 ?>
 <!doctype html>
 <html lang="es">
@@ -36,7 +46,17 @@ if(empty($_SESSION['nombre'])){
                               <a class="nav-link" href="/mod/modUsuario/perfil">Perfil</a>
                             </li>
                     <li class="nav-item active">
+                    <?php 
+                        if(!$resultado){
+                         ?> 
                       <a class="nav-link" href="/mod/modUsuario/Empresa">Administrar Empresa</a>
+                      <?php 
+                        }else{
+                         ?>
+                          <a class="nav-link" href="/mod/modUsuario/Empresa/Actualizar/index.php?id=<?php echo $row['idEmpresaSuscrita']?>">Administrar Empresa</a>
+                         <?php 
+                        }
+                         ?>
                     </li>
                     <li class="nav-item active">
                       <a class="nav-link" href="/mod/modUsuario/Pago">Portal de Pagos</a>
@@ -57,7 +77,7 @@ if(empty($_SESSION['nombre'])){
       <!--Botones-->
       <section>
         <div class="container">
-                <div class="row" style="margin-top:15%;">
+                <div class="row" style="margin-top:10%;">
                       <a class=" btn-block btn btn-danger active" >
                         <h3>Opciones de Perfil</h3>
                       </a>
@@ -66,7 +86,7 @@ if(empty($_SESSION['nombre'])){
                   <div class="row">
                       <div class="col-lg-4">
                           <div class="list-group nav nav-tabs" id="myTab" role="tablist">
-                              <a href="#tab1" class="list-group-item btn-block nav-item btn btn-warning list-group-item-action active" data-toggle="tab">Mis Empresas</a>
+                              <a href="#tab1" class="list-group-item btn-block nav-item btn btn-warning list-group-item-action active" data-toggle="tab">Mi Empresa</a>
                               <a href="#tab4" class="list-group-item btn-block nav-item btn btn-warning list-group-item-action" data-toggle="tab">Actualizar Datos</a>
                               <a href="#tab3" class="list-group-item btn-block nav-item btn btn-warning list-group-item-action" data-toggle="tab">Cambiar Contraseña</a>
                           </div>
@@ -77,53 +97,46 @@ if(empty($_SESSION['nombre'])){
                                   <h2 style="text-align:center;">Datos de mi Empresa</h2>
                                     <hr>
                                       <ul class="list-group" class="text-left">
-                                        <li class="list-group-item">Nombre Empresa:</li>
-                                        <li class="list-group-item">Rubro Empresa: </li>
-                                        <li class="list-group-item">Información Empresa: </li>
-                                        <li class="list-group-item">N° de Telefono: </li>
-                                        <li class="list-group-item">Correo de la Empresa:</li>
+                                        <li class="list-group-item">Nombre Empresa: <strong> <?php echo $row['NombreEmpresa']; ?></strong></li>
+                                        <li class="list-group-item">Rubro Empresa: <strong><?php echo $row['RubroEmpresa']; ?> </strong></li>
+                                        <li class="list-group-item">Información Empresa: <strong class=" text-justify"><?php echo substr($row['InformacionEmpresa'] ,0, 24); ?>...</strong></li>
+                                        <li class="list-group-item">N° de Telefono: <strong><?php echo $row['NTelefonoEmpresa']; ?> </strong> </li>
+                                        <li class="list-group-item">Correo de la Empresa: <strong><?php echo $row['CorreoEmpresa']; ?> </strong></li>
                                       </ul>
                                       <div style="text-align:center;" class="mt-3">
-                                        <a href="/mod/modUsuario/Empresa" class="btn btn-danger"  >Administrar mi Empresa</a>
+                                        <a href="/mod/modUsuario/Empresa/Actualizar/index.php?id=<?php echo $row['idEmpresaSuscrita'];?>" class="btn btn-danger"  >Administrar mi Empresa</a>
                                       </div>
                                 </div>
                                     <div class="tab-pane fade" id="tab2" role="tabpanel" aria-labelledby="profile-tab" style="padding:50px;">
                                       <h2 style="text-align:center;">Actualizar Datos</h2><hr>
-                                      <form>
+                                      <form method="POST" action="/php/actualizarUsuario.php">
                                         <div class="form-row">
                                           <div class="form-group col-md-6">
                                             <label for="inputEmail4"><strong>Nombre</strong></label>
-                                            <input type="text" class="form-control" id="inputEmail4" placeholder="Email">
+                                            <input type="text" class="form-control" name="nombre" id="inputEmail4" value="<?php echo $rew['UsuarioNombre']; ?>" placeholder="Nombre">
                                           </div>
                                           <div class="form-group col-md-6">
                                             <label for="inputPassword4"><strong>Apellido</strong></label>
-                                            <input type="text" class="form-control" id="inputPassword4" placeholder="Apellido">
+                                            <input type="text" class="form-control" id="inputPassword4" name="apellido" value="<?php echo $rew['UsuarioApellido']; ?>" placeholder="Apellido">
                                           </div>
                                         </div>
                                         <div class="form-group">
-                                          <label for="inputAddress"><strong>Numero de telefono</strong> </label>
-                                          <input type="text" class="form-control" id="inputAddress" placeholder="+569xxxxxxxxx">
-                                        </div>
-                                        <div class="form-group" style="text-align:center;">
-                                          <div class="form-check">
-                                            <input class="form-check-input" type="checkbox" id="gridCheck">
-                                            <label class="form-check-label" for="gridCheck">
-                                              Estoy seguro de Actualizar mis datos
-                                            </label>
-                                          </div>
+                                          <label for="inputAddress"><strong>Número de telefono</strong> </label>
+                                          <input type="text" class="form-control" id="inputAddress" name="Ntelefono" value="<?php echo $rew['UsuarioTelefono']; ?>" placeholder="+569xxxxxxxxx">
                                         </div>
                                         <div style="text-align:center;" >
-                                          <button type="submit" class="btn btn-danger">Actualizar</button>
+                                        <input type="hidden" name="id" value="<?php echo $_SESSION['id']?>">
+                                          <button type="submit" name="case" value="Actualizar" class="btn btn-danger">Actualizar</button>
                                         </div>
                                       </form>
                                     </div>
                                     <div class="tab-pane fade" id="tab4" role="tabpanel" aria-labelledby="profile-tab">
                                         <h2 style="text-align:center;">Mis Datos</h2>
                                           <ul class="list-group" class="text-left">
-                                            <li class="list-group-item">Nombre:</li>
-                                            <li class="list-group-item">apellido: </li>
-                                            <li class="list-group-item">Telefono: </li>
-                                            <li class="list-group-item">Correo: </li>
+                                            <li class="list-group-item">Nombre: <strong> <?php echo $rew['UsuarioNombre']; ?> </strong ></li>
+                                            <li class="list-group-item">apellido: <strong><?php echo $rew['UsuarioApellido']; ?> </strong ></li>
+                                            <li class="list-group-item">Telefono: <strong><?php echo $rew['UsuarioTelefono']; ?> </strong ></li>
+                                            <li class="list-group-item">Correo: <strong><?php echo $rew['UsuarioEmail']; ?> </strong ></li>
                                           </ul>
                                           <div style="text-align:center;" class="mt-3">
                                             <a href="#tab2" class="btn btn-danger" data-toggle="tab" >Actualizar Mis datos</a>

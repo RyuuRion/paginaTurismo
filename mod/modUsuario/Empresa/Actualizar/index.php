@@ -1,12 +1,22 @@
 <?php
-
+  include('../../../../php/conexion.php');
   session_start();
+  
+
   if(empty($_SESSION['nombre'])){
     header('Location: /');
   }
+  $querye = 'SELECT idEmpresaSuscrita FROM empresasuscrita WHERE Usuario_idUsuario ="'.$_SESSION['id'].'"';
+  $resultade=mysqli_query($mysqli, $querye);
+  $rew=mysqli_fetch_assoc($resultade);
   
-  
-  
+  $idEmpresaS=$rew['idEmpresaSuscrita'];
+  $query='SELECT NombreEmpresa, RubroEmpresa, InformacionEmpresa, DireccionEmpresa, facebook, twitter, instagram, NTelefonoEmpresa, CorreoEmpresa, estadoEmpresa FROM empresasuscrita WHERE idEmpresaSuscrita= "'.$idEmpresaS.'"';
+   $resultado=mysqli_query($mysqli, $query);
+
+   $row=mysqli_fetch_assoc($resultado);
+
+   $idEmpresaSus= $rew['idEmpresaSuscrita'];
 ?>
 
 <!doctype html>
@@ -39,7 +49,17 @@
                               <a class="nav-link" href="/mod/modUsuario/perfil">Perfil</a>
                             </li>
                     <li class="nav-item active">
+                    <?php 
+                        if(!$resultado){
+                         ?> 
                       <a class="nav-link" href="/mod/modUsuario/Empresa">Administrar Empresa</a>
+                      <?php 
+                        }else{
+                         ?>
+                          <a class="nav-link" href="/mod/modUsuario/Empresa/Actualizar/index.php?id=<?php echo $rew['idEmpresaSuscrita']?>">Administrar Empresa</a>
+                         <?php 
+                        }
+                         ?> 
                     </li>
                     <li class="nav-item active">
                       <a class="nav-link" href="/mod/modUsuario/Pago">Portal de Pagos</a>
@@ -57,16 +77,30 @@
         </nav>
     </header>
 
-    <form action="/php/Gempresa.php" method="POST" enctype='multipart/form-data'>
+    <form action="/php/Aempresa.php" method="POST" enctype='multipart/form-data'>
     <!--Banner Empresa-->
     <div id="carouselExampleSlidesOnly" class="carousel slide" data-ride="carousel">
             <div class="carousel-inner">
               <div class="carousel-item active banner-empresa" id="bannerEmpresa">
-                  <img src="/images/img.jpg" alt="img default" height="600px;"  class="w-100 block">
+              <?php 
+							$path = "../../../../img/".$idEmpresaSus;
+							if(file_exists($path)){
+								$directorio = opendir($path);
+								while ($archivo = readdir($directorio))
+								{
+									if (!is_dir($archivo)){
+										echo "<div data='".$path."/".$archivo."'><a href='".$path."/".$archivo."' title='Ver Archivo Adjunto'><span class=''></span></a>";
+                    echo "<img src='../../../../img/$idEmpresaSus/$archivo' id='banner-Empresa' name='imgbannerP' class='w-100 d-block' /> ";
+                    echo "$archivo<br> <a href='#' class='delete' title='Ver Archivo Adjunto' ><i class='far fa-trash-alt mr-2'></i>Eliminar imagen</a></div>";
+									}
+								}
+							}
+							
+						?>
               </div>
               <div class="carousel-caption d-none d-md-block">
                     <h3>Ingresa imagen</h3>
-                    <input name="archivo" id="archivo" type="file"  onchange="return validarExt()" required  accept="image/jpeg,image/gif,image/png, image/jpg">
+                    <input name="archivo" id="archivo" type="file" onchange="return validarExt()"   accept="image/jpeg,image/gif,image/png, image/jpg">
               </div>
           </div>
       </div>
@@ -118,31 +152,41 @@
                               <div class=" form-group mt-2 ">
                                       <div class="col-md-12">
                                           <div class="form-group files">
-                                            <input type="file" class="form-control" id="crEmpresa1[]" multiple name="crEmpresa1[]"  required >
+                                            <input type="file" class="form-control" id="crEmpresa1[]" multiple name="crEmpresa1[]">
                                           </div>
                                  </div>
                               </div>
                               <div class="form-group heading mt-2 offset-lg-3 col-lg-6">
                                   <label for="exampleFormControlInput1"><h3>Nombre de la empresa</h3></label>
-                                  <h3><input type="text" id="nombre" class="form-control" name="nombre" placeholder="Nombre de la Empresa" required></h3>
+                                  <h3><input type="text" id="nombre" class="form-control" name="nombre" value='<?php echo $row["NombreEmpresa"];?>' required></h3>
                                   <hr>
                               </div>
                               <div class="form-group">
                                 <label for="exampleFormControlSelect1"><h3>Rubro de La Empresa</h3></label>
-                                <select class="form-control" name="rubro" id="rubro">
-                                  <option>Restaurantes</option>
-                                  <option>Hospedaje</option>
-                                  <option>Agencia de Turismo</option>
-                                  <option>Artesania</option>
+                                <select class="form-control" name="rubro" id="rubro" value='<?php echo $row["RubroEmpresa"];?>' >
+                                  <option value="Restaurantes">Restaurantes</option>
+                                  <option value="Hospedaje">Hospedaje</option>
+                                  <option value="Agencia de Turismo">Agencia de Turismo</option>
                                 </select>
                               </div>
                               <div class="form-group cargarinfo">
-                                  <textarea name="infomacion" class="form-control" required id="textarea" cols="30" rows="30" placeholder="Información de la empresa" >
+                                  <textarea name="infomacion" class="form-control" required id="textarea" cols="30" rows="30" >
+                                    <?php echo $row["InformacionEmpresa"];?>
                                   </textarea>  
-                              </div>
-                              <div>
-                                <h3>Selecciona la Dirección</h3>
-                                <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d7083051.769538194!2d-71.247111!3d-29.906889!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMjnCsDU0JzI0LjgiUyA3McKwMTQnNDkuNiJX!5e0!3m2!1ses!2scl!4v1559658782140!5m2!1ses!2scl" width="600" height="450" frameborder="0" style="border:0" allowfullscreen></iframe>
+                              </div><hr>
+                              <h3>Selecciona la Dirección</h3>
+                              <div id='map' class='form-group col-lg-12' style="height:450px; width:100%;">
+                                <script>
+                                  var map;
+                                  function initMap() {
+                                    map = new google.maps.Map(document.getElementById('map'), {
+                                      center: {lat: -29.906900, lng: -71.247100},
+                                      zoom: 12
+                                    });
+                                  }
+                                </script>
+                                <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCfq2CZytlW0OCsuVY70bMU2MUKtFPAzmc&callback=initMap"
+                                async defer></script>
                               </div>
                           </div>                
                       <aside class="col-lg-4">
@@ -153,28 +197,29 @@
                                 </div>
                                 <div class=""> 
                                   <div class="mt-1">
-                                      <input type="text" class="form-control" name="telefono" id="telefono" placeholder="Numero de Telefono" required>
+                                      <input type="text" class="form-control" name="telefono" id="telefono" placeholder="Numero de Telefono"  value='<?php echo $row["NTelefonoEmpresa"];?>' required>
                                   </div>
                                   <div class="mt-1">
-                                      <input type="text"  class="form-control" name="facebook" id="facebook"  placeholder="facebook (opcional)">
+                                      <input type="text"  class="form-control" name="facebook" id="facebook"   value='<?php echo $row["facebook"];?>' placeholder="facebook (opcional)">
                                   </div>
                                   <div class="mt-1">
-                                      <input type="text" class="form-control" name="twitter" ?="twitter" placeholder="Twitter (opcional)">
+                                      <input type="text" class="form-control" name="twitter" ?="twitter" value='<?php echo $row["twitter"];?>' placeholder="Twitter (opcional)">
                                 </div>
                                 <div class="mt-1">
-                                  <input type="text" class="form-control" name="instagram" id="instagram" placeholder="Instagram (opcional)"> 
+                                  <input type="text" class="form-control" name="instagram" id="instagram" value='<?php echo $row["instagram"];?>' placeholder="Instagram (opcional)"> 
                                 </div>
                                 <div class="mt-1">
-                                  <input type="email" class="form-control" name="correo" id="correo" placeholder="Correo Electronico" required> 
+                                  <input type="email" class="form-control" name="correo" id="correo" value='<?php echo $row["CorreoEmpresa"];?>' placeholder="Correo Electronico" required> 
                                 </div>
                                 <div class="mt-1">
-                                  <input type="text" class="form-control" name="direccion" id="direccion" placeholder="Direccion" required> 
+                                  <input type="text" class="form-control" name="direccion" id="direccion" value="<?php echo $row["DireccionEmpresa"];?>" placeholder="Direccion" required> 
                                 </div>
                                 <?php print '<input type="hidden" name="iduser" id="iduser" class="nav-link mx-2"  style="color:#fff;" value="'.$_SESSION['id'].'">'?>
                           </div>
                         </div>
                         <div class="dx mt-5">
                           <input type="submit" value="submit" name="submit" class="btn btn-1 btn-block" style="height:60px;">
+                          <a class="btn btn-success btn-block" style="height:60px;padding:15px;" href="/mod/modUsuario/"> Volver a Inicio</a>
                         </div>
                     </aside>
                    </div>    

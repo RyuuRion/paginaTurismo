@@ -5,11 +5,9 @@
   if(empty($_SESSION['nombre'])){
     header('Location: /');
   }
-  $username=$_SESSION[''];
-  $query = 'SELECT FROM empresasuscrita WHERE Usuario_idUsuario ="'.$username.'"';
-
+  $query = 'SELECT idEmpresaSuscrita FROM empresasuscrita WHERE Usuario_idUsuario ="'.$_SESSION['id'].'"';
   $resultado=mysqli_query($mysqli, $query);
-  
+  $row=mysqli_fetch_assoc($resultado);
 ?>
 
 <!doctype html>
@@ -30,18 +28,30 @@
     <!--Barra de navegacion-->
     <header class="fixed-top">
         <nav class="navbar navbar-expand-lg navbar-custom">
-            <a class="nav-link" href="/mod/modUsuario/"><img src="" class="logonav" alt="">css</a>
+            <a class="nav-link" href="/mod/modUsuario/"><img src="/images/" class="logonav" alt="">css</a>
             <button class="navbar-toggler navbar-dark" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
               <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarNav">
-              <ul class="navbar-nav">
-                    <li class="nav-item dropdown mx-2">
-                            <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Admin. Empresa</a>
-                        <div class="dropdown-menu">
-                            <a class="dropdown-item" href="/mod/modUsuario/Empresa/">Ver/Editar Restaurante</a>
-                            <a class="dropdown-item" href="#">Agregar Nuevo Restaurante</a>
-                        </div>
+            <ul class="navbar-nav">
+                            <li class="nav-item active ml-3">
+                              <a class="nav-link" href="/mod/modUsuario/perfil">Perfil</a>
+                            </li>
+                    <li class="nav-item active">
+                    <?php 
+                        if(!$resultado){
+                         ?> 
+                      <a class="nav-link" href="/mod/modUsuario/Empresa">Administrar Empresa</a>
+                      <?php 
+                        }else{
+                         ?>
+                          <a class="nav-link" href="/mod/modUsuario/Empresa/Actualizar/index.php?id=<?php echo $row['idEmpresaSuscrita']?>">Administrar Empresa</a>
+                         <?php 
+                        }
+                         ?> 
+                    </li>
+                    <li class="nav-item active">
+                      <a class="nav-link" href="/mod/modUsuario/Pago">Portal de Pagos</a>
                     </li>
               </ul>
               <ul class="navbar-nav flex-row ml-md-auto d-none d-md-flex">
@@ -65,11 +75,11 @@
                         <?php 
                         if(!$resultado){
                          ?>    
-                         <a href="/mod/modUsuario/Empresa/" class="col-xl-12 btnadmin" style="background:url('/images/employer-branding.png') ; background-repeat:no-repeat; background-position:center; background-size:100%;"><h5>Administrar Empresa</h5></a>
+                         <a href="/mod/modUsuario/Empresa" class="col-xl-12 btnadmin" style="background:url('/images/employer-branding.png') ; background-repeat:no-repeat; background-position:center; background-size:100%;"><h5>Crear Empresa</h5></a>
                          <?php
                         }else{
                         ?>
-                        <a href="/mod/modUsuario/Empresa/Actualizar/">Actualizar Empresa</a>
+                        <a href="/mod/modUsuario/Empresa/Actualizar/index.php?id=<?php echo $row['idEmpresaSuscrita'];?>" class="col-xl-12 btnadmin" style="background:url('/images/employer-branding.png') ; background-repeat:no-repeat; background-position:center; background-size:100%;"><h5>Actualizar Empresa</h5></a>
                         <?php
                         }
                         ?>
