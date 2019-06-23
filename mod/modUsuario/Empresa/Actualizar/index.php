@@ -175,18 +175,69 @@
                                   </textarea>  
                               </div><hr>
                               <h3>Selecciona la Dirección</h3>
+                              <input type="text" id="latitud" name="latitud">
+                              <input type="text" id="longitud" name="longitud">
                               <div id='map' class='form-group col-lg-12' style="height:450px; width:100%;">
-                                <script>
-                                  var map;
-                                  function initMap() {
-                                    map = new google.maps.Map(document.getElementById('map'), {
-                                      center: {lat: -29.906900, lng: -71.247100},
-                                      zoom: 12
-                                    });
-                                  }
+                              <script>
+                                  
+                                    var map;
+                                    var markers = [];
+
+                                    function initMap() {
+                                      var haightAshbury = {lat:-29.901645698897646, lng: -71.24342735500431};
+
+                                      map = new google.maps.Map(document.getElementById('map'), {
+                                        zoom: 12,
+                                        center: haightAshbury,
+                                      });
+
+                                      // This event listener will call addMarker() when the map is clicked.
+                                      map.addListener('click', function(event) {
+                                        deleteMarkers();
+                                        addMarker(event.latLng);
+                                        
+                                      });
+
+                                      // Adds a marker at the center of the map.
+                                      addMarker(haightAshbury);
+                                    }
+
+                                    // Adds a marker to the map and push to the array.
+                                    function addMarker(location) {
+                                      var marker = new google.maps.Marker({
+                                        position: location,
+                                        map: map
+                                      });
+                                      markers.push(marker);
+                                    }
+
+                                    // Sets the map on all markers in the array.
+                                    function setMapOnAll(map) {
+                                      for (var i = 0; i < 1; i++) {
+                                        markers[i].setMap(map);
+                                                document.getElementById("latitud").value = markers[i].getPosition().lat();
+                                                document.getElementById("longitud").value = markers[i].getPosition().lng();
+                                      }
+                                    }
+
+                                    // Removes the markers from the map, but keeps them in the array.
+                                    function clearMarkers() {
+                                      setMapOnAll(null);
+                                    }
+
+                                    // Shows any markers currently in the array.
+                                    function showMarkers() {
+                                      setMapOnAll(map);
+                                    }
+
+                                    // Deletes all markers in the array by removing references to them.
+                                    function deleteMarkers() {
+                                      clearMarkers();
+                                      markers = [];
+                                    }
                                 </script>
                                 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCfq2CZytlW0OCsuVY70bMU2MUKtFPAzmc&callback=initMap"
-                                async defer></script>
+                                async defer> </script>
                               </div>
                           </div>                
                       <aside class="col-lg-4">
@@ -203,7 +254,7 @@
                                       <input type="text"  class="form-control" name="facebook" id="facebook"   value='<?php echo $row["facebook"];?>' placeholder="facebook (opcional)">
                                   </div>
                                   <div class="mt-1">
-                                      <input type="text" class="form-control" name="twitter" ?="twitter" value='<?php echo $row["twitter"];?>' placeholder="Twitter (opcional)">
+                                      <input type="text" class="form-control" name="twitter" id="twitter" value='<?php echo $row["twitter"];?>' placeholder="Twitter (opcional)">
                                 </div>
                                 <div class="mt-1">
                                   <input type="text" class="form-control" name="instagram" id="instagram" value='<?php echo $row["instagram"];?>' placeholder="Instagram (opcional)"> 

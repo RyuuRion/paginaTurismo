@@ -107,28 +107,28 @@
                 </div>
                 <div class="col-lg-6 mt-5">
                     <div class="mt-5 nani1">
-                        <h2 class="" >Formulario Actualizar Usuario</h2>
+                        <h2 class="" > Actualizar Usuario</h2>
                         <form method="POST" action="/php/actualizarUsuario.php">
                             <div class="form-group">
                                 <input type="hidden" id="idusuariosuscrito" name="idusuariosuscrito" value="<?php echo $col['idUsuario']; ?>">
                                 <label for="exampleFormControlInput1"> <strong>Nombre</strong>  </label>
-                                <input type="text" name="nombre" class="form-control" id="exampleFormControlInput1" value="<?php echo $col['UsuarioNombre'] ?>" placeholder="Nombre" autofocus>
+                                <input type="text" disabled name="nombre" class="form-control" id="exampleFormControlInput1" value="<?php echo $col['UsuarioNombre'] ?>" placeholder="Nombre" >
                                 <label for="exampleFormControlInput1"> <strong>Apellido</strong>  </label>
-                                <input type="text"name="apellido" class="form-control" value="<?php echo $col['UsuarioApellido']; ?>" id="exampleFormControlInput1" placeholder="apellido">
-                                <label for="exampleFormControlInput1"> <strong>Email address</strong>  </label>
-                                <input type="email"name="email" class="form-control" value="<?php echo $col['UsuarioEmail'] ?>" id="exampleFormControlInput1" placeholder="name@example.com">
+                                <input type="text"name="apellido" disabled class="form-control" value="<?php echo $col['UsuarioApellido']; ?>" id="exampleFormControlInput1" placeholder="apellido">
+                                <label for="exampleFormControlInput1">  <strong>Email address</strong>  </label>
+                                <input type="email"name="email" disabled class="form-control" value="<?php echo $col['UsuarioEmail'] ?>" id="exampleFormControlInput1" placeholder="name@example.com">
                                 <label for="exampleFormControlInput1"><strong>Numero de Telefóno</strong></label>
-                                <input type="text" name="telefono" class="form-control" value="<?php echo $col['UsuarioTelefono'] ?>" id="exampleFormControlInput1" placeholder="+569xxxxxxxx">
+                                <input type="text" name="telefono" disabled class="form-control" value="<?php echo $col['UsuarioTelefono'] ?>" id="exampleFormControlInput1" placeholder="+569xxxxxxxx">
                                 <div class="form-group">
                                   <label for="exampleFormControlSelect1"><strong>Estado</strong></label>
-                                  <select name="Tipo" class="form-control" id="exampleFormControlSelect1" value="<?php echo $col['UsuarioTipo']; ?>">
+                                  <select name="Tipo" autofocus class="form-control" id="exampleFormControlSelect1">
                                       <option value="1">Administrador</option>
                                       <option value="2">No Suscrito</option>
                                       <option value="3">Suscrito</option>
                                   </select>
                                 </div>
                             </div>
-                            <button type="submit" class="btn btn-block btn-1 mb-2">Enviar</button>
+                            <button type="submit" name="case" value="Actualizar Usuario" class="btn btn-block btn-1 mb-2">Enviar</button>
                           </form>
                     </div>
                 </div>

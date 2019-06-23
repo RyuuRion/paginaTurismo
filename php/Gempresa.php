@@ -12,9 +12,11 @@
     $insta=$mysqli->real_escape_string($_POST['instagram']);
     $telefono=$mysqli->real_escape_string($_POST['telefono']);
     $correo=$mysqli->real_escape_string($_POST['correo']);
+    $dlong= $mysqli->real_escape_string($_POST['longitud']);
+    $dlat= $mysqli->real_escape_string($_POST['latitud']);
     $usuario=$mysqli->real_escape_string($_POST['iduser']);
     
-    $query= 'INSERT into empresasuscrita (NombreEmpresa , RubroEmpresa , InformacionEmpresa , DireccionEmpresa , facebook , twitter , instagram , NtelefonoEmpresa , CorreoEmpresa , estadoEmpresa , Usuario_idUsuario) Values ("'.$nombreEmpresa.'","'.$rub.'","'.$inf.'","'.$direc.'","'.$face.'","'.$twtt.'","'.$insta.'","'.$telefono.'","'.$correo.'", "1" ,"'.$usuario.'")';
+    $query= 'INSERT into empresasuscrita (NombreEmpresa , RubroEmpresa , InformacionEmpresa , DireccionEmpresa, dlong, dlat , facebook , twitter , instagram , NtelefonoEmpresa , CorreoEmpresa , estadoEmpresa , Usuario_idUsuario) Values ("'.$nombreEmpresa.'","'.$rub.'","'.$inf.'","'.$direc.'","'.$dlong.'", "'.$dlat.'" , "'.$face.'","'.$twtt.'","'.$insta.'","'.$telefono.'","'.$correo.'", "1" ,"'.$usuario.'")';
 
   $resultado=mysqli_query($mysqli, $query);
   $id_insert= $mysqli->insert_id;

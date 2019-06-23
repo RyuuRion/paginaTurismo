@@ -12,9 +12,11 @@
     $insta=$mysqli->real_escape_string($_POST['instagram']);
     $telefono=$mysqli->real_escape_string($_POST['telefono']);
     $correo=$mysqli->real_escape_string($_POST['correo']);
+    $dlong= $mysqli->real_escape_string($_POST['longitud']);
+    $dlat= $mysqli->real_escape_string($_POST['latitud']);
     $usuario=$mysqli->real_escape_string($_POST['iduser']);
     
-    $query= 'UPDATE empresasuscrita SET NombreEmpresa="'.$nombreEmpresa.'" , RubroEmpresa="'.$rub.'", InformacionEmpresa="'.$inf.'" , DireccionEmpresa="'.$direc.'" , facebook="'.$face.'", twitter="'.$twtt.'" , instagram="'.$insta.'" , NtelefonoEmpresa="'.$telefono.'" , CorreoEmpresa="'.$correo.'"';
+    $query= 'UPDATE empresasuscrita SET NombreEmpresa="'.$nombreEmpresa.'" , RubroEmpresa="'.$rub.'", InformacionEmpresa="'.$inf.'" , DireccionEmpresa="'.$direc.'" , Dlong="'.$dlong.'", Dlat="'.$dlat.'", facebook="'.$face.'", twitter="'.$twtt.'" , instagram="'.$insta.'" , NtelefonoEmpresa="'.$telefono.'" , CorreoEmpresa="'.$correo.'" WHERE Usuario_idUsuario = "'.$usuario."'";
 
   $resultado=mysqli_query($mysqli, $query);
   $id_insert= $mysqli->insert_id;
