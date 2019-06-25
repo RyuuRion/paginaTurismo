@@ -1,3 +1,16 @@
+<?php
+
+  include("php/conexion.php");
+
+  $query='SELECT idInformacionLugares, nombreLugares FROM informacionlugares WHERE tipoLugar="Importante"';
+
+  $resultado= mysqli_query($mysqli, $query);
+  if(!$resultado){
+    echo "mala la wea no carga la tabla";
+  }
+
+
+?>
 <!doctype html>
 <html lang="es">
   <head>
@@ -108,28 +121,32 @@
                 <div class="dx-title">
                     <h4>Lugares Importantes</h4>
                 </div>
-                  <div class="card-group mt-3">
+                <div class="card-group mt-3">
+                  <?php
+                    while($lugares= mysqli_fetch_assoc($resultado)){
+                      $idL=$lugares['idInformacionLugares'];
+                      $path = "img/lugares/".$idL;
+                  ?>
                       <div class="card mx-2">
-                        <img src="/images/img1.jpg" class="card-img-top" alt="...">
+                        <?php
+                           if(file_exists($path)){
+                            $directorio = opendir($path);
+                             while ($archivo = readdir($directorio)){
+                                if (!is_dir($archivo)){
+                                  echo "<img src='img/lugares/$idL/$archivo' class='card-img-top'>";             
+                                }
+                             }
+                         }
+                        ?>
                         <div class="card-body mt-2">
-                            <h5 class="mt-1">Lugar 1</h5>
-                          <a href="/modU/Lugares/Importantes/lugaresImportantes" class="card-text btn btn-1 mt-2 stretched-link">Ir a detalle</a>
+                            <h5 class="mt-1"><?php echo $lugares['nombreLugares']; ?></h5>
+                          <a href="/modU/Lugares/Importantes/lugaresImportantes/index.php?id=<?php echo $lugares['idInformacionLugares']?>" class="card-text btn btn-1 mt-2 stretched-link">Ir a detalle</a>
                         </div>
                       </div>
-                      <div class="card mx-2 ">
-                        <img src="/images/img2.jpg" class="card-img-top" alt="...">
-                        <div class="card-body mt-2">
-                            <h5 class="mt-1">Lugar 2</h5>
-                            <a href="/modU/Lugares/Importantes/lugaresImportantes" class="btn btn-1 mt-2 stretched-link" mt.2>Ir a detalle</a>
-                        </div>
-                      </div>
-                      <div class="card mx-2 " >
-                        <img src="/images/img4.jpg" class="card-img-top" alt="...">
-                        <div class="card-body">
-                            <h5 class="mt-1">Lugar 3</h5>
-                            <a href="/modU/Lugares/Importantes/lugaresImportantes" class="btn btn-1 mt-2 stretched-link">Ir a detalle</a>
-                        </div>
-                      </div>
+
+                    <?php
+                    }
+                   ?>
                     </div>
                     <a href="/modU/Lugares/importantes" class="btn-danger btn-lg btn-block mt-4">Ver todos los lugares importantes</a>
               </div>
@@ -143,27 +160,37 @@
                       <h4>Lugares donde Comer</h4>
                   </div>
                   <div class="card-group mt-3">
+                  <?php 
+                      $query2='SELECT idEmpresaSuscrita, NombreEmpresa FROM empresasuscrita WHERE RubroEmpresa="Restaurantes"';
+
+                      $resultad= mysqli_query($mysqli, $query2);
+                      if(!$resultad){
+                        echo "mala la wea no carga la tabla";
+                      }
+
+                      while($EmpresaR= mysqli_fetch_assoc($resultad)){
+                        $idE=$EmpresaR['idEmpresaSuscrita'];
+                        $path = "img/".$idE;
+                  ?>
                       <div class="card mx-2">
-                        <img src="/images/img7.jpg" class="card-img-top" alt="...">
+                      <?php
+                           if(file_exists($path)){
+                            $directorio = opendir($path);
+                             while ($archivo = readdir($directorio)){
+                                if (!is_dir($archivo)){
+                                  echo "<img src='img/$idE/$archivo' class='card-img-top'>";             
+                                }
+                             }
+                         }
+                        ?>
                         <div class="card-body mt-2">
-                            <h5 class="mt-1">Lugar 1</h5>
-                          <a href="#" class="card-text btn btn-1 mt-2 stretched-link">Ir a detalles</a>
+                            <h5 class="mt-1"><?php echo $EmpresaR['NombreEmpresa']; ?></h5>
+                          <a href="/modU/restaurantes/restaurantesP/index.php?id=<?php echo $EmpresaR['idEmpresaSuscrita']; ?>" class="card-text btn btn-1 mt-2 stretched-link">Ir a detalles</a>
                         </div>
                       </div>
-                      <div class="card mx-2 ">
-                        <img src="/images/img8.jpg" class="card-img-top" alt="...">
-                        <div class="card-body mt-2">
-                            <h5 class="mt-1">Lugar 2</h5>
-                            <a href="#" class="btn btn-1 mt-2 stretched-link" mt.2>Ir a detalles</a>
-                        </div>
-                      </div>
-                      <div class="card mx-2" >
-                        <img src="/images/img6.jpg" class="card-img-top" alt="...">
-                        <div class="card-body">
-                            <h5 class="mt-1">Lugar 3</h5>
-                            <a href="/modU/restaurantes/restaurantesP" class="btn btn-1 mt-2 stretched-link">Ir a detalles</a>
-                        </div>
-                      </div>
+                      <?php
+                        }
+                      ?>
                     </div>
                     <a href="/modU/restaurantes/" class="btn-danger btn btn-lg btn-block mt-4">Ver todos los Restaurante</a>
               </div>
@@ -178,27 +205,37 @@
                       <h4>Lugares de Hospedaje</h4>
                   </div>
                     <div class="card-group mt-3">
+                    <?php 
+                      $query2='SELECT idEmpresaSuscrita, NombreEmpresa FROM empresasuscrita WHERE RubroEmpresa="Hospedaje"';
+
+                      $resultad= mysqli_query($mysqli, $query2);
+                      if(!$resultad){
+                        echo "mala la wea no carga la tabla";
+                      }
+
+                      while($EmpresaR= mysqli_fetch_assoc($resultad)){
+                        $idE=$EmpresaR['idEmpresaSuscrita'];
+                        $path = "img/".$idE;
+                  ?>
                         <div class="card mx-2">
-                          <img src="/images/img6.jpg" class="card-img-top" alt="...">
+                        <?php
+                           if(file_exists($path)){
+                            $directorio = opendir($path);
+                             while ($archivo = readdir($directorio)){
+                                if (!is_dir($archivo)){
+                                  echo "<img src='img/$idE/$archivo' class='card-img-top'>";             
+                                }
+                             }
+                         }
+                        ?>
                           <div class="card-body mt-2">
-                              <h5 class="mt-1">Lugar 1</h5>
-                            <a href="/modU/hospedaje/hospedajeP/" class="card-text btn btn-1 mt-2 stretched-link">Ir a detalles</a>
+                              <h5 class="mt-1"><?php echo $EmpresaR['NombreEmpresa']; ?></h5>
+                            <a href="/modU/hospedaje/hospedajeP/index.php?id=<?php echo $EmpresaR['idEmpresaSuscrita']; ?>" class="card-text btn btn-1 mt-2 stretched-link">Ir a detalles</a>
                           </div>
                         </div>
-                        <div class="card mx-2 ">
-                          <img src="/images/img5.jpg" class="card-img-top" alt="...">
-                          <div class="card-body mt-2">
-                              <h5 class="mt-1">Lugar 2</h5>
-                              <a href="/modU/hospedaje/hospedajeP/" class="btn btn-1 mt-2 stretched-link" mt.2>Ir a detalles</a>
-                          </div>
-                        </div>
-                        <div class="card mx-2 " >
-                          <img src="/images/img4.jpg" class="card-img-top" alt="...">
-                          <div class="card-body">
-                              <h5 class="mt-1">Lugar 3</h5>
-                              <a href="/modU/hospedaje/hospedajeP/" class="btn btn-1 mt-2 stretched-link">Ir a detalles</a>
-                          </div>
-                        </div>
+                        <?php
+                        }
+                      ?>
                       </div>
                       <a href="/modU/hospedaje/" class="btn-danger btn-lg btn-block mt-4">Ver Los lugares de alojamiento</a>
                 </div>
@@ -212,27 +249,38 @@
                       <h4>Agencias de Turismo</h4>
                   </div>
                     <div class="card-group mt-3">
+                    <?php 
+                      $query2='SELECT idEmpresaSuscrita, NombreEmpresa FROM empresasuscrita WHERE RubroEmpresa="Agencia de Turismo"';
+
+                      $resultad= mysqli_query($mysqli, $query2);
+                      if(!$resultad){
+                        echo "mala la wea no carga la tabla";
+                      }
+
+                      while($EmpresaR= mysqli_fetch_assoc($resultad)){
+                        $idE=$EmpresaR['idEmpresaSuscrita'];
+                        $path = "img/".$idE;
+                  ?>
                         <div class="card mx-2">
-                          <img src="/images/im4.jpg" class="card-img-top" alt="...">
+                        <?php
+                           if(file_exists($path)){
+                            $directorio = opendir($path);
+                             while ($archivo = readdir($directorio)){
+                                if (!is_dir($archivo)){
+                                  echo "<img src='img/$idE/$archivo' class='card-img-top'>";             
+                                }
+                             }
+                         }
+                        ?>
                           <div class="card-body mt-2">
-                              <h5 class="mt-1">Agencia 1</h5>
-                            <a href="/modU/agencias/agenciasP" class="card-text btn btn-1 mt-2 stretched-link">Ir a detalles</a>
+                              <h5 class="mt-1"><?php echo $EmpresaR['NombreEmpresa']; ?></h5>
+                            <a href="/modU/agencias/agenciasP/index.php?id=<?php echo $EmpresaR['idEmpresaSuscrita']; ?>" class="card-text btn btn-1 mt-2 stretched-link">Ir a detalles</a>
                           </div>
                         </div>
-                        <div class="card mx-2 ">
-                          <img src="/images/im3.jpg" class="card-img-top" alt="...">
-                          <div class="card-body mt-2">
-                              <h5 class="mt-1">agencia 2</h5>
-                              <a href="/modU/agencias/agenciasP" class="btn btn-1 mt-2 stretched-link" mt.2>Ir a detalles</a>
-                          </div>
-                        </div>
-                        <div class="card mx-2" >
-                          <img src="/images/im5.jpg" class="card-img-top" alt="...">
-                          <div class="card-body">
-                              <h5 >agencia 3</h5>
-                              <a href="/modU/agencias/agenciasP" class="btn btn-1 mt-2 stretched-link">Ir a detalles</a>
-                          </div>
-                        </div>
+                        <?php
+                        }
+                        $mysqli=""
+                      ?>
                       </div>
                       <a href="/modU/agencias/" class="btn-danger btn-lg btn-block mt-4">Ver todas las Agencias de Turismo</a>
                 </div>
