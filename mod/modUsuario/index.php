@@ -69,7 +69,7 @@
       <section>
         <div class="container">
                 <div class="row" style="margin-top:10%;">
-                        <a href="/mod/modUsuario/Perfil/" class="col-xl-6 btnadmin" style="background: url('https://image.flaticon.com/icons/svg/17/17004.svg'); background-repeat:no-repeat; background-position:center;  background-size:40%;"><h5>Perfil</h5></a>
+                        <a href="/mod/modUsuario/perfil/" class="col-xl-6 btnadmin" style="background: url('https://image.flaticon.com/icons/svg/17/17004.svg'); background-repeat:no-repeat; background-position:center;  background-size:40%;"><h5>Perfil</h5></a>
                         <a href="/mod/modUsuario/Pago/" class="col-xl-6 btnadmin" style="background:url('https://previews.123rf.com/images/bjarts/bjarts1701/bjarts170100374/69878577-dollar-prosperity-symbol-logo-money-icon-sign-design-vector-illustration-isolated-on-white-backgroun.jpg') ; background-repeat:no-repeat; background-position:center; background-size:50%; background-color:#fff;" ><h5>Portal de Pago</h5></a>
                         <?php 
                         if(!$resultado){
