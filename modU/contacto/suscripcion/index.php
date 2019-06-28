@@ -67,7 +67,7 @@
                     <div class="mt-5 nani1">
                         <h2 class="" >Registro</h2>
                         <p></p>
-                        <form method="POST" action="/php/registrar" enctype="multipart/form-data">
+                        <form method="POST" action="/php/registrar.php" enctype="multipart/form-data">
                             <div class="form-group">
                               <label for="exampleFormControlInput1"> <strong>Email / correo</strong>  </label>
                               <input type="email" name="email" class="form-control" id="exampleFormControlInput1" required placeholder="correo@example.com">
@@ -80,7 +80,7 @@
                               <label for="exampleFormControlInput1"><strong>Numero de Telefóno</strong></label>
                               <input type="text" name="telefono" class="form-control" id="exampleFormControlInput1" required placeholder="+569xxxxxxxx">
                             </div>
-                            <button type="submit" class="btn btn-block btn-1 mb-2">Enviar</button>
+                            <input type="submit" value="Registrarse" class="btn btn-block btn-1 mb-2">
                           </form>
                     </div>
                 </div>

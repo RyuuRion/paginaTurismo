@@ -265,7 +265,7 @@
                                 <div class="mt-1">
                                   <input type="text" class="form-control" name="direccion" id="direccion" value="<?php echo $row["DireccionEmpresa"];?>" placeholder="Direccion" required> 
                                 </div>
-                                <?php print '<input type="hidden" name="iduser" id="iduser" class="nav-link mx-2"  style="color:#fff;" value="'.$_SESSION['id'].'">'?>
+                                <input type="hidden" name="idempresa" id="idempresa" class="nav-link mx-2"  style="color:#fff;" value="<?php echo $rew['idEmpresaSuscrita'] ?>">
                           </div>
                         </div>
                         <div class="dx mt-5">

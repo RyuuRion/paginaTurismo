@@ -3,6 +3,7 @@
     if( isset($_POST['email']) and isset($_POST['pass'])){
 
         include('conexion.php');
+        
         $usuario= mysqli_real_escape_string($mysqli,$_POST['email']);
         $pass= mysqli_real_escape_string($mysqli,$_POST['pass']);
 

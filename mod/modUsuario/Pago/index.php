@@ -96,8 +96,9 @@
                                 <div class="tab-pane fade dx" id="list-profile" role="tabpanel" aria-labelledby="list-profile-list">
                                     <h2 style="text-align:center;">Pago de Suscripción</h2>
                                     <hr>
-                                    <label for=""><h3>Proceso de Implementar</h3> <img src="https://www.cosasnuestras.cl/wp-content/uploads/2016/05/webpay-logo.png" alt="webpay logo"></label>
-                                        <a class="btn-block nav-item btn btn-danger mt-2" id="list-home-list" data-toggle="list" href="#list-home" role="tab" aria-controls="home">atras</a>
+                                    <label for=""><h3>Pagar Con webpay</h3> <img src="https://www.cosasnuestras.cl/wp-content/uploads/2016/05/webpay-logo.png" alt="webpay logo" width="400px"></label>
+                                        <a href="realizarP/" class="btn-block nav-item btn btn-success mt-2">Proceder Al Pago</a>
+                                        <a href="/mod/modUsuario/Pago/" class="btn-block nav-item btn btn-danger mt-2">Atras</a>
                                 </div>
                             </div>
                         </div>

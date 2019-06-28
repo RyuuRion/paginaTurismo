@@ -1,6 +1,5 @@
 <?php
 
-    
 $mysqli = mysqli_connect("localhost","root","","mdbturismo");
 
 if(!$mysqli){

@@ -136,7 +136,7 @@
                               </div>
                               <div class="form-group heading mt-2 offset-lg-3 col-lg-6">
                                   <label for="exampleFormControlInput1"><h3>Nombre de la empresa</h3></label>
-                                  <h3><input type="text" id="nombre" class="form-control" name="nombre" placeholder="Nombre de la Empresa" required></h3>
+                                  <h3><input type="text" id="nombre" class="form-control" multiple name="nombre" placeholder="Nombre de la Empresa" required></h3>
                                   <hr>
                               </div>
                               <div class="form-group">
@@ -154,7 +154,70 @@
                               </div>
                               <div>
                                 <h3>Selecciona la Dirección</h3>
-                                <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d7083051.769538194!2d-71.247111!3d-29.906889!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMjnCsDU0JzI0LjgiUyA3McKwMTQnNDkuNiJX!5e0!3m2!1ses!2scl!4v1559658782140!5m2!1ses!2scl" width="600" height="450" frameborder="0" style="border:0" allowfullscreen></iframe>
+                                <input type="text" id="latitud" name="latitud">
+                                <input type="text" id="longitud" name="longitud">
+                                <div id='map' class='form-group col-lg-12' style="height:450px; width:100%;">
+                              <script>
+                                  
+                                    var map;
+                                    var markers = [];
+
+                                    function initMap() {
+                                      var haightAshbury = {lat:-29.901645698897646, lng: -71.24342735500431};
+
+                                      map = new google.maps.Map(document.getElementById('map'), {
+                                        zoom: 12,
+                                        center: haightAshbury,
+                                      });
+
+                                      // This event listener will call addMarker() when the map is clicked.
+                                      map.addListener('click', function(event) {
+                                        deleteMarkers();
+                                        addMarker(event.latLng);
+                                        
+                                      });
+
+                                      // Adds a marker at the center of the map.
+                                      addMarker(haightAshbury);
+                                    }
+
+                                    // Adds a marker to the map and push to the array.
+                                    function addMarker(location) {
+                                      var marker = new google.maps.Marker({
+                                        position: location,
+                                        map: map
+                                      });
+                                      markers.push(marker);
+                                    }
+
+                                    // Sets the map on all markers in the array.
+                                    function setMapOnAll(map) {
+                                      for (var i = 0; i < 1; i++) {
+                                        markers[i].setMap(map);
+                                                document.getElementById("latitud").value = markers[i].getPosition().lat();
+                                                document.getElementById("longitud").value = markers[i].getPosition().lng();
+                                      }
+                                    }
+
+                                    // Removes the markers from the map, but keeps them in the array.
+                                    function clearMarkers() {
+                                      setMapOnAll(null);
+                                    }
+
+                                    // Shows any markers currently in the array.
+                                    function showMarkers() {
+                                      setMapOnAll(map);
+                                    }
+
+                                    // Deletes all markers in the array by removing references to them.
+                                    function deleteMarkers() {
+                                      clearMarkers();
+                                      markers = [];
+                                    }
+                                </script>
+                                <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCfq2CZytlW0OCsuVY70bMU2MUKtFPAzmc&callback=initMap"
+                                async defer> </script>
+                              </div>
                               </div>
                           </div>                
                       <aside class="col-lg-4">
