@@ -110,7 +110,7 @@
                                             </ol>
                                             <div class="carousel-inner banner-img">
                                               <div class="carousel-item active" id="cr-empresa-1">
-                                               <!-- <label for=""><h5>Imagen 1: </h5></label><input type="file"  id="crEmpresa1" > -->
+                                               
                                               </div>
                                               <div class="carousel-item" id="cr-empresa-2">
                                               </div>
@@ -130,7 +130,7 @@
                               <div class=" form-group mt-2 ">
                                       <div class="col-md-12">
                                           <div class="form-group files">
-                                            <input type="file" class="form-control" id="crEmpresa1[]" multiple name="crEmpresa1[]"  required >
+                                            <input type="file" class="form-control" id="crEmpresa1[]" multiple name="crEmpresa1[]"  required onchange="return previewC()" >
                                           </div>
                                  </div>
                               </div>
@@ -145,7 +145,6 @@
                                   <option>Restaurantes</option>
                                   <option>Hospedaje</option>
                                   <option>Agencia de Turismo</option>
-                                  <option>Artesania</option>
                                 </select>
                               </div>
                               <div class="form-group cargarinfo">
@@ -154,8 +153,8 @@
                               </div>
                               <div>
                                 <h3>Selecciona la Dirección</h3>
-                                <input type="text" id="latitud" name="latitud">
-                                <input type="text" id="longitud" name="longitud">
+                                <input type="hidden" id="latitud" name="latitud">
+                                <input type="hidden" id="longitud" name="longitud">
                                 <div id='map' class='form-group col-lg-12' style="height:450px; width:100%;">
                               <script>
                                   
@@ -327,7 +326,7 @@
                   archivo= archivos.item(i);
                   var visor = new FileReader();
                   visor.onload = function(e){
-                      document.getElementById('cr-empresa-'+i+'').innerHTML= '<img src="'+e.target.result+'" alt="imagen no cargada" id="carrousel-Empresa-'+i+'" name="imgCarrousel'+i+'" class="w-100 d-block"> ';
+                      document.getElementById('cr-empresa-'+i+'').innerHTML= '<img src="'+e.target.result+'" alt="imagen no cargada" id="carrousel-Empresa-'+i+'" name="imgCarrousel'+i+'" style="width:730px;"> ';
                   };
                   visor.readAsDataURL(archivo);
         }

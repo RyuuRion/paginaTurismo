@@ -13,7 +13,7 @@
   $idEmpresaS=$rew['idEmpresaSuscrita'];
   $query='SELECT NombreEmpresa, RubroEmpresa, InformacionEmpresa, DireccionEmpresa, facebook, twitter, instagram, NTelefonoEmpresa, CorreoEmpresa, estadoEmpresa FROM empresasuscrita WHERE idEmpresaSuscrita= "'.$idEmpresaS.'"';
    $resultado=mysqli_query($mysqli, $query);
-
+   $cuantos=mysqli_num_rows($resultado);
    $row=mysqli_fetch_assoc($resultado);
 
    $idEmpresaSus= $rew['idEmpresaSuscrita'];
@@ -50,7 +50,7 @@
                             </li>
                     <li class="nav-item active">
                     <?php 
-                        if(!$resultado){
+                        if($cuantos>1){
                          ?> 
                       <a class="nav-link" href="/mod/modUsuario/Empresa">Administrar Empresa</a>
                       <?php 
@@ -131,13 +131,25 @@
                                               <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
                                             </ol>
                                             <div class="carousel-inner banner-img">
+                                            <?php 
+                                              $path = "../../../../img/".$idEmpresaSus."/imagenC";
+                                              if(file_exists($path)){
+                                                $directorio = opendir($path);
+                                                while ($archivo = readdir($directorio))
+                                                {
+                                                  if (!is_dir($archivo)){
+                                                    echo "<div class='carousel-item'>";
+                                                    echo "<img src='../../../../img/$idEmpresaSus/imagenC/$archivo'class='w-100 d-block' /> ";
+                                                    echo "</div>";
+                                                  }
+                                                }
+                                              }
+                                              
+                                            ?>
                                               <div class="carousel-item active" id="cr-empresa-1">
-                                               <!-- <label for=""><h5>Imagen 1: </h5></label><input type="file"  id="crEmpresa1" > -->
+                                               
                                               </div>
-                                              <div class="carousel-item" id="cr-empresa-2">
-                                              </div>
-                                              <div class="carousel-item" id="cr-empresa-3">
-                                              </div>
+
                                             </div>
                                             <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
                                               <span class="carousel-control-prev-icon" aria-hidden="true"></span>
@@ -175,8 +187,8 @@
                                   </textarea>  
                               </div><hr>
                               <h3>Selecciona la Dirección</h3>
-                              <input type="text" id="latitud" name="latitud">
-                              <input type="text" id="longitud" name="longitud">
+                              <input type="hidden" id="latitud" name="latitud">
+                              <input type="hidden" id="longitud" name="longitud">
                               <div id='map' class='form-group col-lg-12' style="height:450px; width:100%;">
                               <script>
                                   

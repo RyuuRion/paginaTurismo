@@ -177,7 +177,7 @@
                            if(file_exists($path)){
                             $directorio = opendir($path);
                              while ($archivo = readdir($directorio)){
-                                if (!is_dir($archivo)){
+                                if (!is_dir($archivo) ){
                                   echo "<img src='img/$idE/$archivo' class='card-img-top'>";             
                                 }
                              }

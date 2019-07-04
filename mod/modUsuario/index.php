@@ -7,6 +7,7 @@
   }
   $query = 'SELECT idEmpresaSuscrita FROM empresasuscrita WHERE Usuario_idUsuario ="'.$_SESSION['id'].'"';
   $resultado=mysqli_query($mysqli, $query);
+  $cuantos=mysqli_num_rows($resultado);
   $row=mysqli_fetch_assoc($resultado);
 ?>
 
@@ -39,7 +40,7 @@
                             </li>
                     <li class="nav-item active">
                     <?php 
-                        if(!$resultado){
+                        if($cuantos<1){
                          ?> 
                       <a class="nav-link" href="/mod/modUsuario/Empresa">Administrar Empresa</a>
                       <?php 
@@ -72,13 +73,13 @@
                         <a href="/mod/modUsuario/perfil/" class="col-xl-6 btnadmin" style="background: url('https://image.flaticon.com/icons/svg/17/17004.svg'); background-repeat:no-repeat; background-position:center;  background-size:40%;"><h5>Perfil</h5></a>
                         <a href="/mod/modUsuario/Pago/" class="col-xl-6 btnadmin" style="background:url('https://previews.123rf.com/images/bjarts/bjarts1701/bjarts170100374/69878577-dollar-prosperity-symbol-logo-money-icon-sign-design-vector-illustration-isolated-on-white-backgroun.jpg') ; background-repeat:no-repeat; background-position:center; background-size:50%; background-color:#fff;" ><h5>Portal de Pago</h5></a>
                         <?php 
-                        if($resultado == true){
+                        if($cuantos<1){
                          ?>    
-                         <a href="/mod/modUsuario/Empresa/Actualizar/index.php?id=<?php echo $row['idEmpresaSuscrita'];?>" class="col-xl-12 btnadmin" style="background:url('/images/employer-branding.png') ; background-repeat:no-repeat; background-position:center; background-size:100%;"><h5>Actualizar Empresa</h5></a>
+                         <a href="/mod/modUsuario/Empresa" class="col-xl-12 btnadmin" style="background:url('/images/employer-branding.png') ; background-repeat:no-repeat; background-position:center; background-size:100%;"><h5>Crear Empresa</h5></a>                     
                          <?php
                         }else{
                         ?>
-                         <a href="/mod/modUsuario/Empresa" class="col-xl-12 btnadmin" style="background:url('/images/employer-branding.png') ; background-repeat:no-repeat; background-position:center; background-size:100%;"><h5>Crear Empresa</h5></a>
+                         <a href="/mod/modUsuario/Empresa/Actualizar/index.php?id=<?php echo $row['idEmpresaSuscrita'];?>" class="col-xl-12 btnadmin" style="background:url('/images/employer-branding.png') ; background-repeat:no-repeat; background-position:center; background-size:100%;"><h5>Actualizar Empresa</h5></a>
                         <?php
                         }
                         ?>

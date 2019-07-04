@@ -44,6 +44,7 @@
 .banner-img {
     background-color:gray;
     height: 350px;
+    width: 100%;
     text-align: center;
     color:#fff;
 }
@@ -96,7 +97,7 @@
 }
 
 .files:before {
-  content:"Browse or Drag file here";
+  content:"Buscar o Arrastrar los Archivos Aqui";
   position:absolute;
   bottom:55px;;
   left:0;
